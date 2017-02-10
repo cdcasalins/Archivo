@@ -5,12 +5,15 @@
  */
 package archivo;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
@@ -25,6 +28,7 @@ public class formulario extends javax.swing.JFrame {
      */
     File archivo;
     public formulario() {
+        archivo = null;
         initComponents();
     }
 
@@ -38,11 +42,91 @@ public class formulario extends javax.swing.JFrame {
     private void initComponents() {
 
         jFileChooser1 = new javax.swing.JFileChooser();
+        ventanaAgregar = new javax.swing.JFrame();
+        tcodigo = new javax.swing.JTextField();
+        tnombre = new javax.swing.JTextField();
+        tpromedio = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         rutaArchivo = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+
+        ventanaAgregar.setResizable(false);
+        ventanaAgregar.setSize(new java.awt.Dimension(300, 400));
+
+        tcodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tcodigoActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Guardar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Codigo");
+
+        jLabel3.setText("Nombre");
+
+        jLabel4.setText("Promedio");
+
+        javax.swing.GroupLayout ventanaAgregarLayout = new javax.swing.GroupLayout(ventanaAgregar.getContentPane());
+        ventanaAgregar.getContentPane().setLayout(ventanaAgregarLayout);
+        ventanaAgregarLayout.setHorizontalGroup(
+            ventanaAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                .addGroup(ventanaAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(ventanaAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jButton4))
+                    .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2))
+                    .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(tpromedio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel4)))
+                .addContainerGap(113, Short.MAX_VALUE))
+        );
+        ventanaAgregarLayout.setVerticalGroup(
+            ventanaAgregarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ventanaAgregarLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel3)
+                .addGap(5, 5, 5)
+                .addComponent(tnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel4)
+                .addGap(4, 4, 4)
+                .addComponent(tpromedio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 205, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(41, 41, 41))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +163,20 @@ public class formulario extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tabla);
 
+        jButton2.setText("Guardar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Agregar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,7 +192,12 @@ public class formulario extends javax.swing.JFrame {
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton2))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -107,7 +210,11 @@ public class formulario extends javax.swing.JFrame {
                     .addComponent(jButton1))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -124,6 +231,7 @@ public class formulario extends javax.swing.JFrame {
         int opcion = jFileChooser1.showOpenDialog(this);
         if(opcion == JFileChooser.APPROVE_OPTION){
             archivo = jFileChooser1.getSelectedFile();
+            rutaArchivo.setText(archivo.getAbsolutePath());
             try {
                 Scanner leer = new Scanner(archivo);
                DefaultTableModel model = (DefaultTableModel)tabla.getModel();
@@ -145,6 +253,54 @@ public class formulario extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tcodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tcodigoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tcodigoActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+     try {
+            long codigo = Long.parseLong(tcodigo.getText());
+            String nombre = tnombre.getText();
+            Double promedio = Double.parseDouble(tpromedio.getText());
+            DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+            model.addRow(new Object[]{codigo, nombre, promedio});
+        } catch (Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "ERROR");
+        }
+        ventanaAgregar.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        ventanaAgregar.setVisible(true);
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        if(archivo != null) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+                DefaultTableModel model = (DefaultTableModel) tabla.getModel();
+                int filas = tabla.getRowCount();
+                
+                for(int i = 0; i < filas; i++) {
+                    String linea = model.getValueAt(i, 0) + ", " + model.getValueAt(i, 1) + ", " + model.getValueAt(i, 2);
+                    bw.write(linea);
+                    bw.newLine();
+                }
+                bw.close();
+            } catch(Exception e) {
+                
+            }
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,10 +339,20 @@ public class formulario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField rutaArchivo;
     private javax.swing.JTable tabla;
+    private javax.swing.JTextField tcodigo;
+    private javax.swing.JTextField tnombre;
+    private javax.swing.JTextField tpromedio;
+    private javax.swing.JFrame ventanaAgregar;
     // End of variables declaration//GEN-END:variables
 }
